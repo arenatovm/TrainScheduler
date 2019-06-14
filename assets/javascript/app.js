@@ -1,14 +1,14 @@
 var firebaseConfig = {
-    apiKey: "AIzaSyAy2BThoJ1yHEt5BcTsCg5cWe9lM2t3KXI",
-    authDomain: "traintime-32942.firebaseapp.com",
-    databaseURL: "https://traintime-32942.firebaseio.com",
-    projectId: "traintime-32942",
-    storageBucket: "traintime-32942.appspot.com",
-    messagingSenderId: "887135725325",
-    appId: "1:887135725325:web:62717de9d22cad66"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
+  apiKey: "AIzaSyAy2BThoJ1yHEt5BcTsCg5cWe9lM2t3KXI",
+  authDomain: "traintime-32942.firebaseapp.com",
+  databaseURL: "https://traintime-32942.firebaseio.com",
+  projectId: "traintime-32942",
+  storageBucket: "traintime-32942.appspot.com",
+  messagingSenderId: "887135725325",
+  appId: "1:887135725325:web:62717de9d22cad66"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
 
   var database = firebase.database();
 
