@@ -26,7 +26,7 @@ firebase.initializeApp(firebaseConfig);
       //capture input from form fileds
       trainName = $("#train-input").val().trim();
       trainDestination = $("#destination-input").val().trim();
-      firstTrain = $("#time-input").val().trim();
+      firstTrain = $("#start-input").val().trim();
       trainFrequency = $("#frequency-input").val().trim();
   
     //log everything to console
