@@ -44,15 +44,15 @@ firebase.initializeApp(firebaseConfig);
     })
     //alert :Train successfully added"
     alert("Train successfully added")
-    //clears all of he text-boxes
+    //clears all of the text-boxes
     $("#train-input").text("");
     $("#destination-input").text("");
-    $("#time-input").text("");
+    $("#start-input").text("");
     $("#frequency-input").text("");
     
   });
 
-  //create firebase event to retrieve trains form the satabase and a table row in the html when a user adds an entry
+  //create firebase event to retrieve trains form the database and a table row in the html when a user adds an entry
   database.ref().on("child_added", function(dataFromDatabase){
       //console log data to make sure it is retrieving results
     console.log(dataFromDatabase.val());
@@ -63,13 +63,37 @@ firebase.initializeApp(firebaseConfig);
     var tFirstTrain = dataFromDatabase.val().dbFirstTrain;
     var tFrequency = dataFromDatabase.val().dbTrainFrequency;
 
+    // First Time (pushed back 1 year to make sure it comes before current time)
+    var firstTimeConverted = moment(tFirstTrain, "HH:mm").subtract(1, "years");
+    console.log(firstTimeConverted);
+
+    // Current Time
+    var currentTime = moment();
+    console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+
+    // Difference between the times
+    var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+    console.log("DIFFERENCE IN TIME: " + diffTime);
+
+    // Time apart (remainder)
+    var tRemainder = diffTime % tFrequency;
+    console.log(tRemainder);
+
+    // Minute Until Train
+    var tMinutesTillTrain = tFrequency - tRemainder;
+    console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
+
+    // Next Train
+    var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+    console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
+
     //display results inside the table
     var tr = $("<tr>");
     var tdName = $("<td>").text(tName);
     var tdDestination = $("<td>").text(tDestination);
     var tdFrequency= $("<td>").text(tFrequency);
-    var tdNextArrival = $("<td>").text("to be calculated");
-    var tdMinutesAway = $("<td>").text("to be calculated");
+    var tdNextArrival = $("<td>").text(nextTrain);
+    var tdMinutesAway = $("<td>").text(tMinutesTillTrain);
     //create vars to hold table elements and content
     tr.append(tdName, tdDestination, tdFrequency, tdNextArrival,tdMinutesAway);
     //append all table data(td) to the table row (tr)
